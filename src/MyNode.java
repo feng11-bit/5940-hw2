@@ -25,13 +25,13 @@ public class MyNode<T> {
         return parent;
     }
     //setter
-    public void setItem(T item) {
-        this.item = item;
-    }
     public void setLeft(MyNode<T> left) {
         this.left = left;
     }
     public void setRight(MyNode<T> right) {
         this.right = right;
+    }
+    public void setParent(MyNode<T> parent) {
+        this.parent = parent;
     }
 }
