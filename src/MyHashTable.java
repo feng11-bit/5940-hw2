@@ -35,6 +35,58 @@ public class MyHashTable<T extends Comparable<T>> {
         }
         return node;
     }
+    //contains method
+    public MyNode contains(T item) {
+        if(item==null){
+            throw new IllegalArgumentException("Illegal: item is null");
+        }
+        int index=Math.floorMod(item.hashCode(), capacity);
+        if(body[index]==null){
+            return null;
+        }
+        MyNode node= body[index].contains(item);
+        return node;
+    }
+    //remove method
+    public boolean remove(T item) {
+        if(item==null){
+            throw new IllegalArgumentException("Illegal: item is null");
+        }
+        int index=Math.floorMod(item.hashCode(), capacity);
+        if(body[index]==null){ //if null, nothing to remove
+            return false;
+        }
+        boolean result = body[index].remove(item);
+        if(result){
+            size--; //if removed, the size changed
+        }
+        return result;
+    }
 
+    public boolean isEmpty(){
+        return size==0; //only true if not item in hashTable
+    }
+    public int size(){
+        return size;
+    }
+    public void clear(){
+        body = new MyTree[capacity];
+        size = 0;
+    }
+    public static void main (String[] args){
+        //create new hashtable
+        MyHashTable<String> myHashTable = new MyHashTable<>();
+        //print &test method
+        System.out.println(myHashTable.add("I"));
+        System.out.println(myHashTable.add("LOVE"));
+        System.out.println(myHashTable.add("CIT"));
+        System.out.println(myHashTable.add("5940"));
+        System.out.println(myHashTable.add("!"));
+        System.out.println("size:"+myHashTable.size());
+        System.out.println("contains LOVE:"+myHashTable.contains("LOVE"));
+        System.out.println("not contains HATE:"+myHashTable.contains("HATE"));
+        System.out.println("insert exist LOVE:"+myHashTable.add("LOVE"));
+        System.out.println("remove exist LOVE:"+myHashTable.remove("LOVE"));
+        System.out.println("remove LOVE again:"+myHashTable.remove("LOVE"));}
 }
 
